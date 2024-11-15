@@ -1,0 +1,9 @@
+//@version=5
+indicator("DCA ÷ Mayer Multiple", overlay = true)
+
+input_value = input.float(1000, title="DCA")
+
+mayerMultiple = close / ta.sma(close, 200)
+result = input_value / mayerMultiple
+
+plot(result, color=color.new(#00ffaa, 100))
