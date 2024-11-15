@@ -1,0 +1,21 @@
+//@version=5
+indicator("DCA ÷ Mayer Multiple", overlay = true)
+
+input_value = input.float(1000, title="DCA")
+
+currentPrice = close
+currentDay = ta.sma(close, 200)
+mayerMultiple = currentPrice / currentDay
+
+result = input_value / mayerMultiple
+
+var label myLabel = na
+offset = 1
+
+if (na(myLabel))
+    myLabel := label.new(x=bar_index + offset, y=close, text="Resultado: " + str.tostring(result, "#.##"), 
+                         style=label.style_label_left, color=color.white, textcolor=color.black, 
+                         size=size.normal, yloc=yloc.price, xloc=xloc.bar_index)
+else
+    label.set_text(myLabel, "Resultado: " + str.tostring(result, "#.##"))
+    label.set_xy(myLabel, bar_index + offset, close)
