@@ -1,0 +1,35 @@
+//@version=5
+indicator("Mayer Multiple", overlay=true)
+
+length = input.int(200, title="Moving Average Period")
+mayer_level_0_55 = input.color(color.new(#1d5e24, 0), title="Level Color 0,55")
+mayer_level_0_70 = input.color(color.new(#58885e, 0), title="Level Color 0,70")
+mayer_level_0_85 = input.color(color.new(#94b397, 0), title="Level Color 0,85")
+mayer_level_1_00 = input.color(color.new(#FFFFFF, 0), title="Level Color 1,00")
+mayer_level_1_15 = input.color(color.new(#eeb9ba, 0), title="Level Color 1,15")
+mayer_level_1_30 = input.color(color.new(#dea3a5, 0), title="Level Color 1,30")
+mayer_level_1_45 = input.color(color.new(#ce8c8f, 0), title="Level Color 1,45")
+mayer_level_1_60 = input.color(color.new(#be7679, 0), title="Level Color 1,60")
+mayer_level_1_75 = input.color(color.new(#ad5f63, 0), title="Level Color 1,75")
+mayer_level_1_90 = input.color(color.new(#9d494d, 0), title="Level Color 1,90")
+mayer_level_2_05 = input.color(color.new(#8d3237, 0), title="Level Color 2,05")
+mayer_level_2_20 = input.color(color.new(#7d1c21, 0), title="Level Color 2,20")
+
+mayer_multiple = close / ta.sma(close, length)
+
+var color plot_color = na 
+
+plot_color := (mayer_multiple < 0.55) ? mayer_level_0_55 :
+              (mayer_multiple < 0.70) ? mayer_level_0_70 :
+              (mayer_multiple < 0.85) ? mayer_level_0_85 :
+              (mayer_multiple < 1.00) ? mayer_level_1_00 :
+              (mayer_multiple < 1.15) ? mayer_level_1_15 :
+              (mayer_multiple < 1.30) ? mayer_level_1_30 :
+              (mayer_multiple < 1.45) ? mayer_level_1_45 :
+              (mayer_multiple < 1.60) ? mayer_level_1_60 :
+              (mayer_multiple < 1.75) ? mayer_level_1_75 :
+              (mayer_multiple < 1.90) ? mayer_level_1_90 :
+              (mayer_multiple < 2.05) ? mayer_level_2_05 :
+              mayer_level_2_20
+
+plot(mayer_multiple, color=plot_color, title="Mayer Multiple", linewidth=2)
